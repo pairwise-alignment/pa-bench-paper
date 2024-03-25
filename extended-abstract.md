@@ -25,10 +25,10 @@ HiFi reads, and ultra-long Oxford Nanopore reads.
 PA-Bench is a rigorous benchmarking framework that 1) makes it easier for developers
 to compare their methods with others on a wide variety of data and 2) allows
 downstream users to make informed choices in choosing the right
-algorithms for their data. Lastly it 3) provides a uniform API and command
+algorithms for their data. Lastly, it 3) provides a uniform API and command
 line interface.
 
-To limit the scope of the benchmarks, we chose to focus on the simplest task of global alignment of DNA sequences.
+Currently, PA-Bench only supports benchmarking global alignment of DNA sequences.
 Although this does not capture the full complexity of real-world use cases, which include semi-global, local, etc. alignment
 or other data types like proteins, graphs, etc., this still allows us to better understand the performance characteristics of alignment
 algorithms.
