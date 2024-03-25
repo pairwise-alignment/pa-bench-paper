@@ -116,3 +116,5 @@ problems such as coloured De Bruijn graph construction and compression.
   Block Aligner, BSAlign), maybe proberly cite some/all of them. (i can add them.)
 - Write that this makes most sense for jobs between 0.01s to a few hours. Not
   really for day-long / one-off jobs.
+- list which tools are currently wrapped
+- a sentence on pa-types / fundamental reusable library types for Rust-based aligners.
