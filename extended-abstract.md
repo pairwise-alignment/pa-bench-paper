@@ -15,7 +15,7 @@ gold standard results compared to those methods.
 To date, there has not been a scalable and comprehensive benchmark suite for DP aligners.
 Many algorithm developers build their own ad-hoc benchmarks, but they fail to account for the diversity of downstream use cases.
 For example, it is possible to align reads to genomes, genomes to genomes, reads to other reads, etc.
-Pairs of sequences can vary widely, from small substitutions or insertions/deletions (indels), or large structural variations
+Pairs of sequences can vary widely, from small substitutions or insertions/deletions (indels), to large structural variations
 driven by biology.
 This problem is amplified by the rapid increase in sequencing technologies that produce reads with varying error
 profiles and length characteristics, including short Illumina reads, long PacBio HiFi reads, ultra-long Oxford Nanopore reads,
@@ -30,25 +30,51 @@ or other data types like proteins, graphs, etc., this still allows us to better 
 algorithms.
 
 ### Methods
-At a high level, PA-Bench consists of wrappers and types for different aligner algorithms for a uniform interface,
-a command-line tool for running these wrapper individually,
-and a command-line tool for orchestrating a set of jobs for benchmarking different aligners on different datasets.
+At a high level, PA-Bench wraps existing aligners in a uniform interface,
+provides a command-line tool for running these wrapper individually,
+and provides a command-line tool to orchestrate a set of jobs for benchmarking different aligners on different datasets.
 New aligners can easily be supported by implementing the simple interface.
 
-PA-Bench's main interface takes a YAML file that allows the user to specify datasets (with options to generate sequences or read them from files),
-whether to compute tracebacks, alignment cost models, and the alignment algorithms.
-Then, it takes the cartesian product of these parameters to get the benchmarking jobs.
+PA-Bench's main interface takes a `YAML` file that allows the user to specify a
+number of things:
+- The datasets to run on, which can be either an input file, a download link, or
+parameters to generate pseudo-random sequences.
+- Whether to compute only the distance or also a traceback.
+- The cost model to use.
+- The algorithms to run.
+
+For example, the below configuration can be used to compare the scaling with
+length of Edlib and WFA.
+```yaml
+- time_limit: 1h
+  mem_limit: 32GiB
+  datasets:
+    - !Generated
+      seed: 31415
+      error_rates: [0.05]
+      error_models: [Uniform]
+      lengths: [1000, 10000, 100000, 1000000, 10000000]
+      total_size: 10000000
+  traces: [true]
+  costs: [{ sub: 1, open: 0, extend: 1 }]
+  algos:
+    - !Edlib
+    - !Wfa
+```
+
 These jobs are automatically executed on multiple threads for testing or a single thread for benchmarking.
 PA-Bench allows setting limits on the runtime and memory usage of jobs, and it gracefully handles
-resource exhaustion or errors.
-To test the accuracy of aligners, especially those with heuristic algorithms, PA-Bench verifies the alignment results
-by comparing different algorithms.
+resource exhaustion and errors.
+To test the accuracy of aligners, especially those with approximate algorithms, PA-Bench verifies alignment results
+by checking the returned CIGAR for consistency and comparing the cost of the
+alignment returned by different algorithms.
 Additionally, to speed up development iteration time, PA-Bench caches job results by default to avoid rerunning successful jobs.
-Finally, PA-Bench outputs benchmark results in `JSON` format, and we provide example scripts to parse and plot
-benchmark results.
+Finally, PA-Bench outputs benchmark results in a `JSON` format that includes
+among others the time and memory usage of each job and the CPU frequency when the job was started
+and finished. Example experiments and scripts to parse and plot benchmark results are provided.
 
 PA-Bench has proven useful for rapidly testing and benchmarking aligners, and
-it has been used in practice to run the benchmarks for A\*PA and discover bugs in other aligners.
+it has been used in practice to both run the benchmarks for A\*PA and discover bugs in other aligners.
 
 ### Results
 Some plots made using the PA-Bench.
