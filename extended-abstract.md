@@ -6,7 +6,7 @@
 The problem of pairwise alignment using Smith-Waterman dynamic programming (DP) has been studied since over 60 years ago,
 but there are still many recent advances in the state of the art.
 This is for good reason: DP alignment accounts for a significant amount of time in real-world bioinformatics pipelines,
-especially with recent long read technologies.
+especially with long genomes and recent long read technologies.
 In fact, there has been substantial recent work on designing alignment-free algorithms, but DP alignment still provides
 gold standard results compared to those methods.
 
