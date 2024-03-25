@@ -5,11 +5,12 @@ Ragnar Groot Koerkamp and Daniel Liu
 ## Abstract
 
 ### Motivation
-The problem of pairwise alignment using Smith-Waterman dynamic programming (DP) has been studied since over 60 years ago,
-but there are still many recent advances in the state of the art.
-This is for good reason: DP alignment accounts for a significant amount of time in real-world bioinformatics pipelines,
+The problem of pairwise alignment using Smith-Waterman dynamic programming (DP) has been studied for over 60 years,
+but still many advancements are being made.
+This is for good reason: alignment accounts for a significant fraction of the
+time spend in real-world bioinformatics pipelines,
 especially with long genomes and recent long read technologies.
-In fact, there has been substantial recent work on designing alignment-free algorithms, but DP alignment still provides
+In fact, there has been substantial recent work on designing faster `alignment-free' algorithms, but DP alignment still provides
 gold standard results compared to those methods.
 
 To date, there has not been a scalable and comprehensive benchmark suite for DP aligners.
