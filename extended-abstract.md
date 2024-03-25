@@ -13,17 +13,20 @@ especially with long genomes and recent long read technologies.
 In fact, there has been substantial recent work on designing faster `alignment-free' algorithms, but DP alignment still provides
 gold standard results compared to those methods.
 
-To date, there has not been a scalable and comprehensive benchmark suite for DP aligners.
-Many algorithm developers build their own ad-hoc benchmarks, but they fail to account for the diversity of downstream use cases.
+To date, there has not been a scalable and comprehensive benchmark suite for aligners.
+Many developers build their own ad-hoc benchmarks, but they fail to account for the diversity of downstream use cases.
 For example, it is possible to align reads to genomes, genomes to genomes, reads to other reads, etc.
 Pairs of sequences can vary widely, from small substitutions or insertions/deletions (indels), to large structural variations
 driven by biology.
 This problem is amplified by the rapid increase in sequencing technologies that produce reads with varying error
-profiles and length characteristics, including short Illumina reads, long PacBio HiFi reads, ultra-long Oxford Nanopore reads,
-and other emerging technologies.
-Thus, we set out to build a framework to make it easier for algorithm developers to compare their algorithms with others on a
-wide variety of data and allow downstream algorithm users to make informed choices in picking the right algorithms for their
-data.
+profiles and length characteristics, including short Illumina reads, long PacBio
+HiFi reads, and ultra-long Oxford Nanopore reads.
+
+PA-Bench is a rigorous benchmarking framework that 1) makes it easier for developers
+to compare their methods with others on a wide variety of data and 2) allows
+downstream users to make informed choices in choosing the right
+algorithms for their data. Lastly it 3) provides a uniform API and command
+line interface.
 
 To limit the scope of the benchmarks, we chose to focus on the simplest task of global alignment of DNA sequences.
 Although this does not capture the full complexity of real-world use cases, which include semi-global, local, etc. alignment
@@ -109,8 +112,8 @@ problems such as coloured De Bruijn graph construction and compression.
 
 # TODO
 
-- I feel like we should somewhere stress that proper benchmarking is a more
-  general problem that doesn't seem to be taken very 'serious' in papers. Nobody
+- I feel like we should somewhere stress that proper benchmarking is hard and
+  doesn't seem to be taken very 'serious' in papers. Nobody
   explains their setup and/or verifies that CPU frequency is constant.
 - write something specifically about the many methods for affine SIMD (KSW2,
   Block Aligner, BSAlign), maybe proberly cite some/all of them. (i can add them.)
