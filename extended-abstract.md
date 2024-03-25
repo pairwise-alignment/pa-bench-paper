@@ -1,5 +1,7 @@
 # PA-Bench: a framework for benchmarking pairwise aligners
 
+Ragnar Groot Koerkamp and Daniel Liu
+
 ## Abstract
 
 ### Motivation
@@ -28,7 +30,27 @@ or other data types like proteins, graphs, etc., this still allows us to better 
 algorithms.
 
 ### Methods
+At a high level, PA-Bench consists of wrappers and types for different aligner algorithms for a uniform interface,
+a command-line tool for running these wrapper individually,
+and a command-line tool for orchestrating a set of jobs for benchmarking different aligners on different datasets.
+New aligners can easily be supported by implementing the simple interface.
 
-**Results**: Some plots made using the PaBench.
+PA-Bench's main interface takes a YAML file that allows the user to specify datasets (with options to generate sequences or read them from files),
+whether to compute tracebacks, alignment cost models, and the alignment algorithms.
+Then, it takes the cartesian product of these parameters to get the benchmarking jobs.
+These jobs are automatically executed on multiple threads for testing or a single thread for benchmarking.
+PA-Bench allows setting limits on the runtime and memory usage of jobs, and it gracefully handles
+resource exhaustion or errors.
+To test the accuracy of aligners, especially those with heuristic algorithms, PA-Bench verifies the alignment results
+by comparing different algorithms.
+Additionally, to speed up development iteration time, PA-Bench caches job results by default to avoid rerunning successful jobs.
+Finally, PA-Bench outputs benchmark results in `JSON` format, and we provide example scripts to parse and plot
+benchmark results.
+
+PA-Bench has proven useful for rapidly testing and benchmarking aligners, and
+it has been used in practice to run the benchmarks for A\*PA and discover bugs in other aligners.
+
+### Results
+Some plots made using the PA-Bench.
 
 **Code**: github.com/pairwise-alignment/pa-bench

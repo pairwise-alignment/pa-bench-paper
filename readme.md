@@ -1,6 +1,6 @@
-# Pa-bench Paper
+# PA-Bench Paper
 
-This is a work-in-progress paper on Pa-Bench.
+This is a work-in-progress paper on PA-Bench.
 
 Goals:
 - Submit a 1-2 page [abstract](extended-abstract.md) to RECOMB-Seq by March 26.
