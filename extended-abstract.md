@@ -40,18 +40,16 @@ and provides a command-line tool to orchestrate a set of jobs for benchmarking d
 New aligners can easily be supported by implementing the simple interface.
 
 PA-Bench's main interface takes a `YAML` file that allows the user to specify a
-number of things:
+number of parameters:
 - The datasets to run on, which can be either an input file, a download link, or
 parameters to generate pseudo-random sequences.
 - Whether to compute only the distance or also a traceback.
 - The cost model to use.
 - The algorithms to run.
 
-For example, the below configuration can be used to compare the scaling with
-length of Edlib and WFA.
-
-[Maybe this is too much; but it feels like an example is shorter than
-explaining the equivalent in words.]
+Then, jobs are created from the cartesian product of these parameters.
+For example, the configuration below can be used to compare the scaling
+of Edlib and WFA with different sequence lengths:
 ```yaml
 - time_limit: 1h
   mem_limit: 32GiB
@@ -102,8 +100,8 @@ used. It can be seen that for the similar SARS-CoV-2 reads, affine BiWFA is fast
 and only slightly slower than linear BiWFA, while for the much more divergent
 ONT reads, affine BiWFA is much slower than all other methods.
 
-### Discussion
-PA-Bench is a convenient tool for efficiently and accurately comparing pairwise aligners.
+### Conclusion
+PA-Bench is a convenient tool that makes comparing pairwise aligners easy for developers and users.
 While currently only pairwise alignment is supported, it could be useful to
 extend this framework to other problems as well, including e.g.
 sequence-to-graph alignment and possibly also datastructure oriented
